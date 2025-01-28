@@ -1,0 +1,300 @@
+Script started on 2025-01-28 11:39:19-05:00 [TERM="xterm-256color" TTY="/dev/pts/2" COLUMNS="120" LINES="30"]
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ git pull
+[?2004lAlready up to date.
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ [Kaaamir1@remote06:~/i471/submit/lab1-sol$ pwd
+[?2004l/home2/aaamir1/i471/submit/lab1-sol
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ git statsu[K[Kus -s
+[?2004l [31mM[m README
+[31m??[m LOG
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ git add .
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ git commit -m "update README"
+[?2004l[main 91df75b] update README
+ Committer: Ahmed Aamir <aaamir1@cs.binghamton.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+ create mode 100644 submit/lab1-sol/LOG
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ git push
+[?2004lEnumerating objects: 26, done.
+Counting objects:   3% (1/26)Counting objects:   7% (2/26)Counting objects:  11% (3/26)Counting objects:  15% (4/26)Counting objects:  19% (5/26)Counting objects:  23% (6/26)Counting objects:  26% (7/26)Counting objects:  30% (8/26)Counting objects:  34% (9/26)Counting objects:  38% (10/26)Counting objects:  42% (11/26)Counting objects:  46% (12/26)Counting objects:  50% (13/26)Counting objects:  53% (14/26)Counting objects:  57% (15/26)Counting objects:  61% (16/26)Counting objects:  65% (17/26)Counting objects:  69% (18/26)Counting objects:  73% (19/26)Counting objects:  76% (20/26)Counting objects:  80% (21/26)Counting objects:  84% (22/26)Counting objects:  88% (23/26)Counting objects:  92% (24/26)Counting objects:  96% (25/26)Counting objects: 100% (26/26)Counting objects: 100% (26/26), done.
+Delta compression using up to 8 threads
+Compressing objects:   5% (1/20)Compressing objects:  10% (2/20)Compressing objects:  15% (3/20)Compressing objects:  20% (4/20)Compressing objects:  25% (5/20)Compressing objects:  30% (6/20)Compressing objects:  35% (7/20)Compressing objects:  40% (8/20)Compressing objects:  45% (9/20)Compressing objects:  50% (10/20)Compressing objects:  55% (11/20)Compressing objects:  60% (12/20)Compressing objects:  65% (13/20)Compressing objects:  70% (14/20)Compressing objects:  75% (15/20)Compressing objects:  80% (16/20)Compressing objects:  85% (17/20)Compressing objects:  90% (18/20)Compressing objects:  95% (19/20)Compressing objects: 100% (20/20)Compressing objects: 100% (20/20), done.
+Writing objects:   4% (1/24)Writing objects:   8% (2/24)Writing objects:  12% (3/24)Writing objects:  16% (4/24)Writing objects:  20% (5/24)Writing objects:  25% (6/24)Writing objects:  29% (7/24)Writing objects:  33% (8/24)Writing objects:  37% (9/24)Writing objects:  41% (10/24)Writing objects:  45% (11/24)Writing objects:  50% (12/24)Writing objects:  54% (13/24)Writing objects:  58% (14/24)Writing objects:  62% (15/24)Writing objects:  66% (16/24)Writing objects:  70% (17/24)Writing objects:  75% (18/24)Writing objects:  79% (19/24)Writing objects:  83% (20/24)Writing objects:  87% (21/24)Writing objects:  91% (22/24)Writing objects:  95% (23/24)Writing objects: 100% (24/24)Writing objects: 100% (24/24), 4.91 KiB | 264.00 KiB/s, done.
+Total 24 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas:   0% (0/2)[Kremote: Resolving deltas:  50% (1/2)[Kremote: Resolving deltas: 100% (2/2)[Kremote: Resolving deltas: 100% (2/2), completed with 1 local object.[K
+To github.com:ahmeda03/i471.git
+   bee5894..91df75b  main -> main
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ pwd[K[K[Kls
+[?2004llexer  LOG  README  regex
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ cd regex/[K[K[K[K[K[K[K[K[Kla -a
+[?2004lbash: la: command not found
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol$ ls -a[K[K[K[K[Kcd regex/
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ls
+[?2004ldata.txt  lex1.mjs  lexer.mjs  table-lexer.mjs
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs 
+[?2004lusage: lexer.mjs RE_TABLE_FILE INPUT_FILE
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex1.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"CHAR","lexeme":"A"}
+{"kind":"INT","lexeme":"34"}
+{"kind":"CHAR","lexeme":"_"}
+{"kind":"INT","lexeme":"22"}
+{"kind":"CHAR","lexeme":"I"}
+{"kind":"CHAR","lexeme":"D"}
+{"kind":"CHAR","lexeme":"_"}
+{"kind":"INT","lexeme":"44"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"a"}
+{"kind":"CHAR","lexeme":"s"}
+{"kind":"CHAR","lexeme":"d"}
+{"kind":"CHAR","lexeme":"s"}
+{"kind":"CHAR","lexeme":"d"}
+{"kind":"CHAR","lexeme":"f"}
+{"kind":"CHAR","lexeme":"s"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ cp [Kcp lex1.j[Kmjs lex2.mjd[Ks
+[?2004lbash: cpcp: command not found
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ cpcp lex1.mjs lex2.mjs[1P[1P
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ls
+[?2004ldata.txt  lex1.mjs  lex2.mjs  lexer.mjs  table-lexer.mjs
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex2.mjs data.txt 
+[?2004lSyntaxError: Invalid regular expression: missing /
+[90m    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:152:18)[39m
+[90m    at ModuleLoader.moduleProvider (node:internal/modules/esm/loader:298:14)[39m
+[90m    at async link (node:internal/modules/esm/module_job:67:21)[39m
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex2.mjs data.txt ls[Kcp lex1.mjs lex2.mjsls[K./lexer.mjs lex2.mjs data.txt 
+[?2004lSyntaxError: Invalid regular expression: missing /
+[90m    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:152:18)[39m
+[90m    at ModuleLoader.moduleProvider (node:internal/modules/esm/loader:298:14)[39m
+[90m    at async link (node:internal/modules/esm/module_job:67:21)[39m
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex2.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"ID","lexeme":"asd"}
+{"kind":"ID","lexeme":"sdfs"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ cp lex2.mjd [K[Ks lex3.mjs
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ cp lex2.mjs lex3.mjs./lexer.mjs lex2.mjs data.txt [C[1P[1@3
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":" "}
+{"kind":"ID","lexeme":"asd"}
+{"kind":"CHAR","lexeme":" "}
+{"kind":"ID","lexeme":"sdfs"}
+{"kind":"$err","lexeme":"\n"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":" "}
+{"kind":"ID","lexeme":"asd"}
+{"kind":"CHAR","lexeme":" "}
+{"kind":"ID","lexeme":"sdfs"}
+{"kind":"$err","lexeme":"\n"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":" "}
+{"kind":"ID","lexeme":"asd"}
+{"kind":"CHAR","lexeme":" "}
+{"kind":"ID","lexeme":"sdfs"}
+{"kind":"$err","lexeme":"\n"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":" "}
+{"kind":"ID","lexeme":"asd"}
+{"kind":"CHAR","lexeme":" "}
+{"kind":"ID","lexeme":"sdfs"}
+{"kind":"$err","lexeme":"\n"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"ID","lexeme":"asd"}
+{"kind":"ID","lexeme":"sdfs"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"CHAR","lexeme":"/"}
+{"kind":"ID","lexeme":"asd"}
+{"kind":"ID","lexeme":"sdfs"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ ./lexer.mjs lex3.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"CHAR","lexeme":"("}
+{"kind":"CHAR","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/regex$ cd ../lexer/
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ls
+[?2004ldata.txt  lexer1.java  lexer1.mjs  lexer1.py  run.sh
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ./lexer1.mjs 
+[?2004lusage: lexer1.mjs INPUT_FILE
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ./lexer1.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"(","lexeme":"("}
+{"kind":")","lexeme":")"}
+{"kind":"A","lexeme":"A"}
+{"kind":"INT","lexeme":"34"}
+{"kind":"_","lexeme":"_"}
+{"kind":"INT","lexeme":"22"}
+{"kind":"I","lexeme":"I"}
+{"kind":"D","lexeme":"D"}
+{"kind":"_","lexeme":"_"}
+{"kind":"INT","lexeme":"44"}
+{"kind":"/","lexeme":"/"}
+{"kind":"/","lexeme":"/"}
+{"kind":"a","lexeme":"a"}
+{"kind":"s","lexeme":"s"}
+{"kind":"d","lexeme":"d"}
+{"kind":"s","lexeme":"s"}
+{"kind":"d","lexeme":"d"}
+{"kind":"f","lexeme":"f"}
+{"kind":"s","lexeme":"s"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ cp lexer1.mjs lexer1.2[K[K[K[K2[Kr2.mjd[Ks
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ cp lexer1.mjs lexer2.mjs[2P./lexer1.mjs data.txt [Kls[K./lexer1.mjs data.txt cp lexer1.mjs lexer2.mjs[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K./lexer1.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"(","lexeme":"("}
+{"kind":")","lexeme":")"}
+{"kind":"A","lexeme":"A"}
+{"kind":"INT","lexeme":"34"}
+{"kind":"_","lexeme":"_"}
+{"kind":"INT","lexeme":"22"}
+{"kind":"I","lexeme":"I"}
+{"kind":"D","lexeme":"D"}
+{"kind":"_","lexeme":"_"}
+{"kind":"INT","lexeme":"44"}
+{"kind":"/","lexeme":"/"}
+{"kind":"/","lexeme":"/"}
+{"kind":"a","lexeme":"a"}
+{"kind":"s","lexeme":"s"}
+{"kind":"d","lexeme":"d"}
+{"kind":"s","lexeme":"s"}
+{"kind":"d","lexeme":"d"}
+{"kind":"f","lexeme":"f"}
+{"kind":"s","lexeme":"s"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ./lexer1.mjs data.txt [1P[1@2
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ./lexer2.mjs data.txt 
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ls
+[?2004ldata.txt  lexer1.java  lexer1.mjs  lexer1.py  lexer2.mjs  run.sh
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ cp lexer1.py lex2[Ker2.mjs [K[K[K[Kpy
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ cp lexer1.py lexer2.pyls[K./lexer2.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"(","lexeme":"("}
+{"kind":")","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ls
+[?2004ldata.txt  lexer1.java  lexer1.mjs  lexer1.py  lexer2.mjs  lexer2.py  run.sh
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ rm lexer2.py 
+[?2004l[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ls
+[?2004ldata.txt  lexer1.java  lexer1.mjs  lexer1.py  lexer2.mjs  run.sh
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ lsrm lexer2.py ls[K./lexer2.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"(","lexeme":"("}
+{"kind":")","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ./lexer2.mjs data.txt 
+[?2004l{"kind":"INT","lexeme":"21"}
+{"kind":"INT","lexeme":"23"}
+{"kind":"(","lexeme":"("}
+{"kind":")","lexeme":")"}
+{"kind":"ID","lexeme":"A34"}
+{"kind":"ID","lexeme":"_22"}
+{"kind":"ID","lexeme":"ID_44"}
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ ls
+[?2004ldata.txt  lexer1.java  lexer1.mjs  lexer1.py  lexer2.mjs  run.sh
+[?2004haaamir1@remote06:~/i471/submit/lab1-sol/lexer$ [?2004l
+exit
+
+Script done on 2025-01-28 12:38:31-05:00 [COMMAND_EXIT_CODE="0"]
