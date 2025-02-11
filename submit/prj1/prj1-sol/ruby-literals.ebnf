@@ -1,0 +1,30 @@
+literals
+ : literal*
+ ;
+literal
+ : NIL
+ | BOOL
+ | INT
+ | STR
+ | array
+ | hash
+ | range
+ ;
+array
+ : '[' ( literal',' )* ']'
+ ;
+hash
+ : '{' ( literal '=>' literal',' )* '}'
+ ;
+range
+ : int_range
+ | str_range
+ ;
+int_range
+ : '('int'..'int')'
+ | '('int'...'int')'
+ ;
+str_range
+ : '('str'..'str')'
+ | '('str'...'str')'
+ ;
