@@ -1,0 +1,23 @@
+# test for strings
+
+'' ' ' '\t '
+
+
+
+'hello world'
+
+'He said
+"hello"
+'
+
+'He said
+"She said \'hello\ to me"
+'
+
+'He said\n"She said \'hello\ to me"\n'
+
+'\\'
+
+'hello\
+world'    
+

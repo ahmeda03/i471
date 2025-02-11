@@ -1,0 +1,10 @@
+# check for boolean literals, comment and whitespace
+
+# here is another comment
+  true
+
+false
+
+## and yet another comment
+
+true

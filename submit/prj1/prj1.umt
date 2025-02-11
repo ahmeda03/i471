@@ -1,0 +1,689 @@
+                      P r o j e c t   1
+
+*Due*: Feb 17, before midnight.
+
+*Important Reminder*: As per the course
+.<../../misc/academic-honesty/academic-honesty-policy.html>
+"Academic Honesty Policy", cheating of any kind will minimally
+result in your letter grade for the entire course being reduced by one
+level.
+
+This document first provides the aims of this project.  It then lists
+the requirements as explicitly as possible.  It then hints at how
+these requirements can be met.  Finally, it describes how it can be
+submitted.
+
+                        Aims
+                        ====
+
+The aims of this project are as follows:
+
+  + To encourage you to use regular expressions to implement a trivial
+    scanner.
+
+  + To make you implement a recursive-descent parser for a
+    small language.
+
+  + To use .<https://www.json.org/json-en.html> JSON to represent
+    the results of parsing.
+
+
+                        .=require= Requirements
+                        =======================
+  
+
+Use the implementation of either `java`, `node` or `python3` available
+on `remote.cs` to implement a recursive-descent parser for a subset of
+.<https://docs.ruby-lang.org/en/3.2/syntax/literals_rdoc.html> "Ruby
+literals".  Specifically, your parser should parse a possibly empty
+sequence of Ruby *data-literals*, where a Ruby *literal* is one of the
+following:
+
+  + A *nil-literal* is the reserved word `nil`.
+
+  + A *boolean-literal* is one of the two reserved word `true` or `false`.
+
+  + An *integer-literal* consists of one-or-more digits or underscores `_`.
+    Each underscore must be surrounded by one-or-more digits.  Examples
+    include:
+
+    ```
+    123
+
+    1_2_3
+    ```
+
+    The following are examples of invalid integer literals:
+
+    .code(lang=sh)
+    ```
+    _123      #starts with underscore
+
+    123_      #ends with underscore
+
+    1__2_3    #multiple successive underscores
+    ```
+
+
+  + A *string-literal* which starts with a single-quote `'` followed
+    by zero-or-more escape sequences or arbitrary characters other than
+    single-quote or `\`  and terminated by another single-quote `'`.  An
+    escape sequence consists of a `\` character followed by a single
+    arbitrary character.  Examples include:
+
+    .code(lang=sh)
+    ```
+    ''               #empty
+
+    '    '           #whitespace only
+    
+    'hello world'  
+
+    'He said         
+     "hello"
+    '                #can contain embedded newlines
+
+    'He said
+    "She said \'hello\ to me"
+    '                #escape sequences
+
+    'He said\n"She said \'hello\ to me"\n'  #also escape sequences
+
+    '\\'             #an escaped backslash
+
+    ```
+
+  + An *array-literal* which consists of zero-or-more comma-terminated
+    *literals* surrounded by square-brackets `[` and `]`.
+
+    Example array-literals: `[1, 2, 'hello', ]`, `[ ]`, 
+    `[ [1, 2,], 'world', ]`.
+
+  + A *hash-literal* which consists of zero-or-more comma-terminated
+    *key-value pairs* surrounded by braces `{` and `}`, where a
+    *key-value-pair* consists of two *literals* separated by the `=>`
+    hash-rocket operator.
+
+    Example hash-literals: `{ }`, `{ 'a' => 22, }`, 
+    `{ [ ' ', ] => { 22 => 33, }, }`.
+
+  + A *range-literal* is either an *integer-range* or a
+    *string-range* surrounded by parentheses `(` and `)`.
+    where:
+
+      + An *integer-range* consists of two *integer-literals*
+        separated by the  `..` or `...` range operators.
+
+      + A *string-range* consists of two *string-literals*
+        separated by the `..` or `...`  range operators.
+
+     Example range-literals: `(1..2)`, `('a'...'z')`, `('ab'..'af')`.
+
+
+Whitespace outside of strings and `#`-to-end-of-line comments should
+be ignored.
+
+You will specifically need to submit a
+.<https://linux.die.net/man/1/zip> "zip"-archive which unpacks into a
+`prj1-sol` directory minimally containing your `README`, a file
+`ruby-literals.ebnf` plus two shell scripts `make.sh` and `run.sh`:
+
+[The submitted zip-archive cannot contain any garbage files like cache
+files or directories, binary files or editor backup files. You will
+lose 5 points if it does so.  Note that a garbage file is defined to
+be any file not needed to make and run your project.]
+
+  + `ruby-literals.ebnf` must contain a EBNF grammar for the above
+    *data-literals* language.  The grammar must enforce the above
+    syntax and *must* be written using the EBNF notation described in
+    class.  You may get a *zero* for the entire assignment if you
+    use a different notation.
+
+    Note that the grammar need not correspond directly with all
+    the phrases defined above as long it defines a sequence (possibly
+    empty) of Ruby literals as defined above.
+
+  + Running `sh make.sh` from the `prj1-sol` directory should build any
+    artifacts needed to run your program within the `prj1-sol`
+    directory.
+
+  + Running `sh run.sh` from the `prj1-sol` directory should read 
+    *data-literals* from standard input and write a single line
+    containing the JSON representation of the parse on standard output
+    without any non-significant whitespace:
+
+      + The JSON representation of *data-literals* is a JSON list
+        containing the JSON representation of each individual
+	literal.
+
+      + The JSON representation of the *nil-literal* is the JSON
+        object `{ "tag": "nil', "val": null }`.
+
+      + The JSON representation of a *boolean-literal* is the JSON
+        object `{ "tag": "bool", val: VAL }` where `VAL` is the
+	JSON boolean `true` or `false` corresponding to the literal
+	value.
+
+      + The JSON representation of an *integer-literal* is the JSON
+        object `{ "tag": "int", val: VAL }` where `VAL` is the JSON
+        number corresponding to the integer value of the
+        *integer-literal*.
+
+      + The JSON representation of a *string-literal* is the JSON
+        object `{ "tag": "str", val: VAL }` where `VAL` is the JSON
+	string corresponding to the contents of the *string-literal*.
+
+	Note that JSON strings are enclosed within double-quotes
+	`"` and use the escape sequences `\n` and `\\` to represent
+	newlines and backslashes respectively.
+
+      + The JSON representation of an *array-literal* is the JSON
+        object `{ "tag": "array", val: VAL }` where `VAL` is a JSON
+        array containing the JSON representation of the corresponding
+        elements of the *array-literal*.
+
+      + The JSON representation of a *hash-literal* is the JSON
+        object `{ "tag": "hash", val: VAL }` where `VAL` is a JSON
+        array containing the JSON representation of the corresponding
+        key-value elements of the *hash-literal*.
+
+      + The JSON representation of a key-value element is a JSON
+        object `{ "key": KEY, "val": VALUE }` where `KEY` and
+        `VALUE` are the JSON representations of key and value
+        respectively from the key-value element.
+
+      + The JSON representation of a *range-literal* is a JSON object
+        `{ "tag": TAG, "val": [LO, HI] }` where `LO` and `HI` are the
+        JSON representations of the first and second elements of the
+        *range-literal* and `TAG` is `closed_range` if the
+        range-operator is `..` and `half_open_range` if the range
+        operator is `...`.
+	
+The JSON output should be written on a single line without any
+non-significant whitespace other than the newline terminator.  The
+members of a JSON object may be output in any order.
+        
+If there are errors in the content, the program should exit with a
+*non-zero status* after detecting the first syntax error.  It should
+output a suitable error message on standard error.
+
+An annotated .<extras/LOG?lang=sh> log of the running project and the
+.<extras/tests> "provided tests" should help clarify the above
+requirements.
+
+.=anti-ai= Anti-AI Requirements
+===============================
+
+  + Your `ruby-literals.ebnf` file *must* use EBNF notation which is
+    *identical* to that used in class.  It should not describe the
+    token syntax.
+
+  + Your recursive-descent parsing program *must* be derived from your
+    grammar using roughly the same recipe (including the `peek()` and
+    `consume()` functions) as that covered in class.
+
+  + Your code *must* make a clear distinction between your *lexer* and
+    *parser*.
+
+You will receive a *zero for the entire assignment* if you fail to
+adhere to any of the above requirements.
+
+*Important Note*: Because of gradescope limitations, your `run.sh`
+should not assume execute permissions on any of the submitted files.
+
+			Rationale for the Requirements
+			==============================
+
+The requirements are based on the following rationale:
+
+  + The specified language is a simple language for data literals.
+    Implementing a parser for this language allows you to understand
+    the basic principles of scanning and recursive-descent parsing.
+
+  + The `make.sh` and `run.sh` scripts allow automatic testing of your
+    project without needing to know the details of your implementation
+    language.  The former allows the testing program to run any compilation
+    step required by your implementation language and the latter
+    allows the testing program to run the project.
+
+
+                         Provided Files
+                         ==============
+
+The .<./prj1-sol> prj1-sol directory contains starter shell scripts
+for the two scripts your submission is required to contain as well as
+a template README which you must complete and include with your
+submission.
+
+The .<./extras> extras directory contains auxiliary files associated
+with the project, including files which can help with testing your
+project.
+
+  : .<extras/tests> tests :
+    A directory containing tests.  There are three kinds of test files:
+
+    : `*.test` :
+      A test input for which your program is expected to succeed.
+
+    : `*.out` :
+      The expected pretty-printed JSON output for a successful test of
+      the corresponding `*.test` file.
+
+    : `*.err` :
+      A test input for which your program should fail.
+
+  : .<extras/do-tests.sh?lang=sh> do-tests.sh :
+    A shell script which can be used for running the above tests.
+    It can be invoked from any directory and takes up to two arguments:
+
+       # The path to your `run.sh` shell script.  
+
+       # An optional argument giving the path to a single test
+         to be run.
+
+    If invoked with only a single argument, the script will run
+    all tests.  If invoked with a second argument, then it will
+    run only the test specified by that argument.
+
+  : .<extras/LOG?lang=sh> LOG :
+    A log file illustrating the operation of the project.
+
+
+
+		Standard Input, Standard Output, Standard Error
+		===============================================
+
+This project requires your program to read from standard input and
+write its output to standard output and write error messages to
+standard error.  These are the three I/O streams which are initially
+available when a program starts up under any current OS:
+
+  : *Standard Input* :
+    An input stream, initially set up to read from the console.
+    This often corresponds to file descriptor 0.
+
+  : *Standard Output* :
+    An output stream, initially set up to output to the console.
+    This often corresponds to file descriptor 1.
+
+  : *Standard Error* :
+    Another output stream, initially set up to output to the console.
+    This often corresponds to file descriptor 2.
+
+So you can use these streams without needing to open any file, as they
+are already open.
+
+All popular languages provide access to these streams.
+
+                      Python
+		      ------
+
+    + `sys.stdin`, `sys.stdout` and `sys.stderr` refer to the
+      three streams.
+
+    + `sys.stdin.read()` will read from standard input until EOF.
+
+
+    + `print(...)` or `sys.stdout.write(...)` will print `...` to
+      standard output (the former adds a newline). 
+
+    + `sys.stderr.write(...)` or `print(..., file=sys.stderr)` will
+      write `...` to standard error.
+
+                     JavaScript nodejs
+		     -----------------
+
+    + `0`, `1` and `2` refer to the three streams and can be used
+      wherever a file path is expected. 
+
+    + `fs.readFileSync(0, 'utf8')` will read from standard input until EOF.
+    
+    + `console.log(...)` or `fs.writeFileSync(1, ...)` will write `...`
+      to standard output (the former adds a newline and has additional
+      functionality).
+      
+    + `console.error(...)` or `fs.writeFileSync(2, ...)` will write
+       `...` to standard error (the former adds a newline and has
+       additional functionality).
+
+
+                        Java
+			----
+			
+Java defines `System.in`, `System.out` and `System.err` for the three
+streams; you can then use the smorgasbord of `java.io.*` classes to
+read/write the streams.  The newer `java.nio.file` package provides
+more convenient APIs.
+
+%%%
+                            Ruby
+			    ----
+  
+The ."constants``." `STDIN`, `STDOUT` and `STDERR` refer to the
+three standard streams.
+      
+    + `STDIN.read`  will read from standard input until EOF.
+    
+    + `print(...)` or `STDOUT.print(...)` will write `...` to standard
+      output.
+
+    + `STDERR.print(...)` will write `...` to standard error.
+
+
+                         C++
+			 ---
+
+    `cin`, `cout` and `cerr` from `iostream` can be used for the
+    three streams.
+
+                          Basic C
+			  -------
+  
+    + `<stdio.h>` defines `stdin`, `stdout` and `stderr` for
+      the three streams.
+
+    + `getchar()`, `scanf()` will read from standard input.
+    
+    + `putchar()`, `printf()` will write to standard output.
+    
+    + `fwrite(..., stderr)`, `fprintf(stderr, ...)` will write to
+      standard error.
+      
+%%%
+
+		Using stdin within the Unix Shell
+		---------------------------------
+
+If a program is reading interactively from standard input, then it
+will freeze and wait for input to be provided on the terminal:
+
+.code(lang=sh)
+```
+$ sh run.sh | jq .
+true
+1_2
+^D
+[
+  {
+    "tag": "bool",
+    "val": true
+  },
+  {
+    "tag": "int",
+    "val": 12
+  }
+]
+$
+```
+
+The control-D `^D` is used to indicate EOF to the terminal controller.
+
+It is much more convenient to use  I/O redirection in the shell to
+redirect standard input and output to files:
+
+```
+$ sh ./run.sh \
+     < ~/cs471/projects/prj1/extras/tests/05-ints.test \
+   | jq - S . > ints.json
+```
+
+The `\` escapes newlines to combine multiple physical lines into a
+single logical line; the `< .../tests/05-ints.test` redirects
+the contents of `05-ints.test` to the standard input of
+`run.sh`; the `| jq -S .` pipes the single line output of the program
+to `jq -S .` which pretty-prints the json on its standard output (`-S`
+sorts all object keys); finally, the `> ints.json` redirects
+the standard output of `jq` to `ints.json`.
+
+Note that `run.sh` is totally unaware of the redirection; the shell
+takes care of setting up the standard input and output streams so that
+they are redirected to the files.  For example, if `run.sh` is
+calling a python parser, then the python parser can continue using
+`sys.stdin` and `sys.stdout`.
+
+
+	    	   .=startup= Before Starting Your Project
+		   =======================================
+
+It is assumed that you have completed .<../../labs/start-me-up/start-me-up.html> "Lab 0" before starting this project.  In particular, you should
+have a `~/cs471` directory which is a clone of the course repository
+and a `~/i471` directory which is a clone of your github repository.
+
+The `~/i471` directory is necessary as you will be doing this project
+within the `~/i471/submit/prj1-sol` directory.
+
+                        Hints
+                        =====
+
+This section is not prescriptive in that you may choose to ignore
+it as long as you meet all the project requirements.
+
+
+The following points are worth noting:
+
+  + Ideally, the implementation language for your project should
+    support the following:
+
+      %%%
+      + Does not require any explicit memory management.  This
+        would rule out lower-level languages like C, C++, Rust.
+      %%%
+
+      + Support regex's either in the language or via standard
+        libraries.
+
+      + Easy support for JSON, ideally via standard libraries.
+
+    Scripting languages like Python or JavaScript will probably make
+    the development easiest.  The project is also doable in Java but
+    will need to get around the fact that JSON is not supported natively
+    by Java.
+
+  + The requirements forbid extraneous whitespace in the JSON output
+    which makes the output quite hard to read.  To get around this,
+    you can pipe the output through a JSON pretty-printer like
+    `jq -S .` which is available on `remote.cs`. 
+
+  + While developing the project, you will probably be running
+    tests provided in the .<extras> extras directory.  It may
+    be convenient to set up a shortcut shell variable in the
+    shell you are using for developing your project.
+
+    .code(lang=sh)
+    ```
+    $ extras=$HOME/cs471/projects/prj1/extras
+    # run a particular test
+    $ $extras/do-tests.sh ./run.sh $extras/tests/05-ints.test
+    # run all tests
+    $ $extras/do-tests.sh ./run.sh
+    ```
+
+  + The exit status of the last shell command is available in the
+    shell variable `$?`.  You can examine it using the command `echo
+    $?`.  This can be used to verify that your program exits with a
+    zero status on success and a non-zero status when given erroneous
+    inputs.
+
+  + Note that calling `consume()` changes the lookahead token.  So if
+    you need the lexeme for a token, it should be grabbed from the
+    lookahead before `consume()`ing that token.
+
+You may proceed as follows:
+
+  # Review the material covered in class on regex's, scanners,
+    grammars and recursive-descent parsing.  Specifically:
+
+       # Review the
+        .<../../slides/lang-specification/code/arith/index.html>
+        "online parser" to make sure you understand the gist of how
+        .<../../slides/lang-specification/code/arith/arith.mjs?lang=js>
+        arith.mjs works without getting bogged down in the details of
+        JavaScript.
+
+       # Review specific .<../../slides/lang-specification/code/arith-to-json/>
+         "arithmetic expression to JSON parsers" implemented in different
+	 programming languages.
+
+  # Read the project requirements thoroughly.
+
+  # Get started on the project using the provided
+    .<../working/working.html#start> "generic startup directions".
+    Make sure you have updated the `README`, removed all occurrences
+    of `XXX` and added in your B-number starting with `B0`.
+
+  # Modify the provided .<https://git-scm.com/docs/gitignore>
+    ".gitignore" file suitable to your implementation language.  *Make
+    sure* you set it up to ensure that you do not commit binaries
+    (like `class` files) or cached files to git.  Note that the
+    project allows you to set up the `make.sh` script to automatically
+    build any binaries when your project is graded.
+
+  # Write an EBNF grammar for the *data-literals* language in a file
+    `ruby-literals.ebnf` (note that you .<#anti-ai> must use the same
+    notation as used in class, else *you will receive a zero* for the
+    entire project).  You should be able to do so by structuring your
+    grammar based on the description of the language provided in the
+    .<#require> "Requirements" section.
+
+    Your grammar should be restricted to the phrase structure of the
+    language.  Lexical issues should be hidden behind the use of
+    terminal symbols (which can remain undefined).
+
+    Once you are happy with the grammar, paste it in as a comment
+    into one of your implementation files.  Use the grammar to drive
+    your code as per the recipes discussed in class.
+
+  # Start work on your lexer.  It is easiest to simply read the entire
+    standard input into a string variable.
+
+    You will need to decide how your lexer delivers tokens to the
+    parser.  The most common alternatives are:
+
+      # The lexer accumulate all tokens in a list which is then
+        delivered en-masse to the parser.  This will allow using
+        unlimited lookahead in the parser; i.e. the parser can look
+        ahead by several tokens in order to make parsing
+        decisions. This is the preferred method unless working in a
+        memory constrained environment.
+
+      # The lexer delivers tokens one-by-one as needed by the
+        parser. This will require having the lexer track its position
+        within the input text.
+
+    As mentioned in class, minimally a token should have the following
+    fields:
+
+       : `kind` : specifying the kind of token.
+
+       : `lexeme` : specifying the matched text.
+
+    Additionally, you may want to track the position of the token within
+    the input stream to facilitate error reporting.
+
+    Depending on the implementation language used for your project,
+    making the `kind` field a string equal to the `lexeme` field for
+    all tokens having only one possible lexeme will make your parser more
+    self-documenting. 
+
+    To produce the next token, the scanner can work as follows:
+
+      # Ignore whitespace and `#`-to-end-of-line comments, if any.
+        Note that there could be a sequence of alternating
+	whitespace and `#`-comments.
+
+      # Check whether the prefix of the text after the whitespace/comments
+        matches a possible multiple character token.  If yes, accumulate
+	that token.
+
+      # Otherwise return the first character in the text as a single
+        character token.  This works particularly well if these tokens
+        have the token `kind` set to the `lexeme`.  This will allow
+        any illegal characters to be delivered to the parser which has
+        better context to report errors.
+
+  # Use the techniques discussed in class to write a recursive descent
+    parser for your constructed grammar.  Note that the recipe
+    provided for writing recursive descent parsers requires
+    maintaining a ."global``." variable `tok` which contains the
+    current lookahead token, a `peek(kind)` predicate to check if
+    `tok` matches `kind`, and a `consume(kind)` function which sets
+    `tok` to the next token if its `kind` matches the parameter, and
+    reports an error if that is not the case.
+
+    [If using python3 as your implementation language, you will need
+     to declare any ."global``."  variable `nonlocal` in order to
+     refer to it from within your parsing functions.]
+
+    You should be able to implement the parser easily using the recipe
+    provided for recursive descent parsers.
+
+      + A utility predicate which checks whether the current lookahead
+        token can start a *literal* may be useful.
+
+      + Your parser should attempt a grammar rule only if the current
+        lookahead token can start that rule, or if that rule is the
+        only remaining possibility.
+
+      + When a parsing function returns successfully, ensure that
+        the `tok` lookahead contains the token immediately after
+	the tokens recognized by that function.
+
+      + One advantage of hand-written recursive descent parsers is
+        that it is possible to use arguments and return values of
+        parsing functions.  Specifically, have each parsing function
+        return a value representing the phrase parsed by that
+        function.  Ensure that the return value can easily be
+	converted to the required JSON output.
+
+  # Convert the value returned by your parser to a JSON string without
+    any whitespace and output to standard output followed by a
+    newline.
+
+  # Test your parser using the provided tests:
+
+    .code(lang=sh)
+    ```
+    $ ~/cs471/projects/prj1/extras/do-tests.sh run.sh
+    ```
+
+    Debug any failing tests.  Note that you can run a single test by
+    adding an additional argument to the above command providing the
+    path to the failing test file.
+
+  # Iterate until you meet all requirements.
+
+It is always a good idea to keep committing your project periodically
+to your `i471` github repository to ensure that you do not
+accidentally lose work.
+
+
+	     	   .=submission= Submission
+		   ========================
+
+Complete and submit your project as per the .<../working/working.html#complete>
+"generic completion directions".
+
+
+			References
+			==========
+
+  + .<https://en.wikipedia.org/wiki/Recursive_descent_parser#Example_parser>
+    "Example Parser" .=refs= from Wikipedia article on "Recursive
+    descent parser".  Note that the grammar notation is slightly
+    different:
+
+      + `{` X `}` is used to indicate 0-or-more repetitions of X instead of
+        `X*`.
+
+      + `[ X ]` is used to indicate an optional `X` instead of `X?`.
+
+    The parser uses `accept()` and `expect()` instead of our `peek()`
+    and `consume()`.  The semantics of the routines are slightly
+    different: they get the next token in `accept()`, whereas we get
+    the next token in `consume()`.
+
+  + .<https://www.cs.cornell.edu/courses/cs2112/2015fa/lectures/lec_parsing/>
+    "Grammars and Parsing", discusses building ASTs.  The `peek()` and
+    `consume()` routines described there are exactly equivalent to our
+    `peek()` and `consume()` routines.
+

@@ -1,0 +1,104 @@
+# output of echo is piped into standard input of run.sh
+$ echo "12_3 'hello'" | sh run.sh
+[{"tag":"int","val":123},{"tag":"str","val":"hello"}]
+
+# correct input must result in a zero exit status.
+# ($? is a shell variable containing the exit status of the last command)
+$ echo $?
+0
+
+# the above output is hard to read; hence use jq to pretty-print JSON
+# (the -S ensures that keys of JSON maps are output in sorted order)
+$ echo "12_3 'hello'" | sh run.sh | jq -S .
+[
+  {
+    "tag": "int",
+    "val": 123
+  },
+  {
+    "tag": "str",
+    "val": "hello"
+  }
+]
+
+# a nested structure
+$ echo "{12_3 => ['hello\nworld', 22,], }" | sh run.sh | jq -S .
+[
+  {
+    "tag": "hash",
+    "val": [
+      {
+        "key": {
+          "tag": "int",
+          "val": 123
+        },
+        "val": {
+          "tag": "array",
+          "val": [
+            {
+              "tag": "str",
+              "val": "hello\\nworld"
+            },
+            {
+              "tag": "int",
+              "val": 22
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
+
+# all of the following result in error; note that your implementation
+# can produce error messages different from those shown below (some of
+# the messages shown below can be quite misleading).  What is
+# important is that the exit status should be non-zero for erroneous
+# input.
+
+# int underscores must be internal
+$ echo "12_ " | sh run.sh 
+error: expecting 'EOF' but got '_'
+12_ 
+  ^
+# erroneous input must result in a non-zero exit status.
+# ($? is a shell variable containing the exit status of the last command)
+$ $ echo $?
+1
+
+# cannot have successive underscores
+$ echo "12__3 " | sh run.sh 
+error: expecting 'EOF' but got '_'
+12__3 
+  ^
+# strings must be properly terminated
+$ echo " '\'unclosed\' " | sh run.sh
+error: expecting 'EOF' but got '''
+ '\'unclosed\' 
+ ^
+
+# array elements must have a trailing comma
+$ echo "[1, 2] " | sh run.sh 
+error: expecting ',' but got ']'
+[1, 2] 
+     ^
+
+# arrays must be terminated
+$ echo "[1, 2,  " | sh run.sh 
+error: expecting ']' but got 'EOF'
+[1, 2,  
+        ^
+	
+# hash key-values must have a trailing comma
+$ echo "{1 => 2 }" | sh run.sh 
+error: expecting ',' but got '}'
+{1 => 2 }
+        ^
+
+# hashes must be terminated
+$ echo "{1 => 2," | sh run.sh 
+error: expecting '}' but got 'EOF'
+{1 => 2,
+        ^
+# typed control-D to terminate
+$ 

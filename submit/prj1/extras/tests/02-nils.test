@@ -1,0 +1,7 @@
+# test for nils
+
+nil
+
+# should translate to JSON nulls
+
+nil
