@@ -2,10 +2,8 @@
 
 import re
 import sys
-import json
-
 from collections import namedtuple
-
+import json
 
 """
 literals
@@ -40,7 +38,6 @@ str_range
  ;
 """
 
-#use nested function for encapsulation.
 def parse(text):
 
     def peek(kind): return lookahead.kind == kind
@@ -62,11 +59,11 @@ def parse(text):
             return tok
 
     def program():
-        values = []
+        asts = []
         while (not peek('EOF')):
-            values.append(expr())
+            asts.append(expr())
             consume(';')
-        return values
+        return asts
 
     def expr():
         t = term()
@@ -74,28 +71,32 @@ def parse(text):
             kind = lookahead.kind
             consume(kind)
             t1 = term()
-            t += (t1 if (kind == '+') else -t1)
+            t = Ast(kind, t, t1)
         return t
+    
+    def expn():
+        t = factor()
+        if (peek('EXPN')):
+            consume('EXPN')
+            t1 = expn()
+            return Ast('**', t, t1)
+        return t
+            
 
     def term():
         if (peek('-')):
             consume('-')
-            return - term()
+            return Ast('-', term())
         else:
             return expn()
-
-    def expn():
-        t = factor()
-        if (peek('EXP')):
-            consume('EXP')
-            t = t ** expn()
-        return t
 
     def factor():
         if (peek('INT')):
             value = int(lookahead.lexeme)
             consume('INT')
-            return value
+            ast = Ast('INT')
+            ast['value'] = value
+            return ast
         else:
             consume('(')
             value = expr()
@@ -135,7 +136,6 @@ def scan(text):
             return (m, 'INT')
         elif m := CHAR_RE.match(text):  #must be last: match any char
             return (m, m.group())
-
     tokens = []
     while (len(text) > 0):
         (match, kind) = next_match(text)
@@ -147,19 +147,24 @@ def scan(text):
 def main():
     if (len(sys.argv) != 2): usage();
     contents = readFile(sys.argv[1]);
-    result = parse(contents)
-    print(json.dumps(result, separators=(',', ':')))
+    asts = parse(contents)
+    print(json.dumps(asts, separators=(',', ':'))) #no whitespace
 
 def readFile(path):
     with open(path, 'r') as file:
         content = file.read()
     return content
 
-Token = namedtuple('Token', ['kind', 'lexeme'])
 
 def usage():
     print(f'usage: {sys.argv[0]} DATA_FILE')
     sys.exit(1)
+
+#use a dict so that we can add attributes dynamically
+def Ast(tag, *kids):
+    return { 'tag': tag, } if len(kids) == 0 else { 'tag': tag, 'kids': kids }
+
+Token = namedtuple('Token', ['kind', 'lexeme'])
 
 if __name__ == "__main__":
     main()
