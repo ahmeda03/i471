@@ -21,10 +21,10 @@ range
  | str_range
  ;
 int_range
- : '('int'..'int')'
- | '('int'...'int')'
+ : '('INT'..'INT')'
+ | '('INT'...'INT')'
  ;
 str_range
- : '('str'..'str')'
- | '('str'...'str')'
+ : '('STR'..'STR')'
+ | '('STR'...'STR')'
  ;
