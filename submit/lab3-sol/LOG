@@ -1,0 +1,98 @@
+Script started on 2025-02-18 11:28:43-05:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="91" LINES="13"]
+[?2004haaamir1@remote04:~/i471/submit/lab3-sol$ 
+[?2004l
+[?2004haaamir1@remote04:~/i471/submit/lab3-sol$ 
+[K
+aaamir1@remote04:~/i471/submit/lab3-sol$ 
+[K
+aaamir1@remote04:~/i471/submit/lab3-sol$ 
+[K
+aaamir1@remote04:~/i471/submit/lab3-sol$ pwd
+[?2004l
+/home2/aaamir1/i471/submit/lab3-sol
+[?2004haaamir1@remote04:~/i471/submit/lab3-sol$ git status -s
+[?2004l
+ [31mM[m README
+[31m??[m LOG
+[?2004haaamir1@remote04:~/i471/submit/lab3-sol$ git add .
+[?2004l
+[?2004haaamir1@remote04:~/i471/submit/lab3-sol$ git commit -m "updated README"
+[?2004l
+[main 5df760c] updated README
+ Committer: Ahmed Aamir <aaamir1@cs.binghamton.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+ create mode 100644 submit/lab3-sol/LOG
+[?2004haaamir1@remote04:~/i471/submit/lab3-sol$ git push
+To github.com:ahmeda03/i471.git
+   8151959..5df760c  main -> main
+[?2004haaamir1@remote04:~/i471/submit/lab3-sol$ racket
+[?2004l
+Welcome to Racket v8.12 [cs].
+
+[J> (define (poly-eval x)
+    ((- 1 (+ (* 4 x) (- (* 2 (expt x 2)) (* 3 (expt x 3))))))
+     )
+
+[C[C
+[J> (poly-eval 4)
+[C[C[31m([94mpoly-eval[C[32m4[31m)[0m[C[C[C[C[C[C[C[C[C[C[C[C[C
+[J> (define (poly-eval x)
+    ((+ -1 (+ (* 4 x) (+ (* -2 (expt x 2)) (* 3 (expt x 3))))))
+     )
+
+> 
+
+[C[C
+[J> (define (append-tails list1 list2)
+    (if (and (length list1) (length list2))
+        (append (cdr list2) (cdr list1))
+        )
+    )
+
+> 
+[C[C
+[J> (define (append-tails list1 list)
+        (append (cdr list2) (cdr list))
+    )
+
+
+
+[K
+
+[C[C
+[J> (define (line-length pt0 pt1)
+    (list (- (car pt0) (car pt1)) (- (cdr pt0) (cdr pt1)))
+    )
+
+
+
+> 
+[C[C
+[J> (define (line-length pt0 pt1)
+    (if (and (> (length pt0) 0) (> (length pt1) 0))
+    (list (sqrt (expt (- (car pt1) (car pt0)) 2) (expt (- (cdr pt1) (cdr pt0)) 2)))
+    (#f)
+    )
+    )
+
+[C[C
+[J> 
+[C[C([31m([0m[C[31me[0m[94me[0m[94mx[0m[94mi[0m[94mt[0m
+   )[31m)[0m[A
+[C[C[K
+[?2004haaamir1@remote04:~/i471/submit/lab3-sol$ [?2004l
+
+exit
+
+Script done on 2025-02-18 12:48:20-05:00 [COMMAND_EXIT_CODE="0"]
