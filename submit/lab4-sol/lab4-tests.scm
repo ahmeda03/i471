@@ -21,7 +21,7 @@
   (check-equal? (list-prod '(4 5 1 2 3) '(7 9 4 5 6)) '(28 45 4 10 18))
   (check-equal? (list-prod '() '()) '())
 )
-;(list-prod-tests)
+(list-prod-tests)
 
 
 (define (list-fn-tests)
@@ -33,7 +33,7 @@
 			 '(2 4 5) '(6 7 8))
 		'(-2 6 9))				   
 )
-;(list-fn-tests)
+(list-fn-tests)
 
 
 (define (quadratic-roots-tests)
@@ -41,7 +41,7 @@
   (check-equal? (quadratic-roots 2 0 -18) '(3 -3))
   (check-equal? (quadratic-roots 2 0 18) '(0+3i 0-3i))
 )
-;(quadratic-roots-tests)
+(quadratic-roots-tests)
 
 (define (lists-quadratic-roots-tests)
   (check-equal?

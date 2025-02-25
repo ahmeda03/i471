@@ -17,7 +17,10 @@
 ;;the product of the corresponding elements of `ls1` and `ls2`.
 ;;The function must be implemented by cdr'ing down lists `ls1` and `ls2`.
 (define (list-prod ls1 ls2)
-  'TODO)
+     (if (null? ls1)
+         '()
+         (cons (* (car ls1) (car ls2))
+               (list-prod (cdr ls1) (cdr ls2)))))
 
 ;; Given two number lists `ls1` and `ls2` having the same length and a
 ;; binary function `fn`, `list-fn` should return the list containing
@@ -25,7 +28,10 @@
 ;; and `ls2`.  The function must be implemented by cdr'ing down lists
 ;; `ls1` and `ls2`.
 (define (list-fn fn ls1 ls2)
-  'TODO)
+     (if (null? ls1)
+         '()
+         (cons (fn (car ls1) (car ls2))
+               (list-fn fn (cdr ls1) (cdr ls2)))))
 
 ;;  Return a 2-element list containing the roots of the quadratic
 ;;  equation a*x^2 + b*x + c = 0.  The first element of the returned
@@ -33,14 +39,21 @@
 ;;  second element of the returned list the root with the negative
 ;;  discriminant.
 (define (quadratic-roots a b c)
-  'TODO)
+    (let ( [ discr (sqrt(- (* b b) (* 4 a c))) ]
+           [ minus-b (- b) ]
+           [ a2 (* a 2) ]
+         )
+     (list (/ (+ minus-b discr)a2) (/ (- minus-b discr) a2))
+     ) 
+)
 
 ;; Given `list-as`, `list-bs` and `list-cs` giving the coefficients of
 ;; the quadratic equation `a*x^2 + b*x + c`, return a list of pairs
 ;; giving the roots of the quadratic equation corresponding to each
 ;; triple of coefficients.
 (define (lists-quadratic-roots list-as list-bs list-cs)
-  'TODO)
+    (map (lambda (a b c) (quadratic-roots a b c)) list-as list-bs list-cs)  
+)
 
 ;; Given a list `ls` of lists, return the sum of the lengths of the
 ;; lists in `ls`.  Must be implemented by cdr'ing down `ls`.
