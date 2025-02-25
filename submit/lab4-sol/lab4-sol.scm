@@ -39,7 +39,7 @@
 ;;  second element of the returned list the root with the negative
 ;;  discriminant.
 (define (quadratic-roots a b c)
-    (let ( [ discr (sqrt(- (* b b) (* 4 a c))) ]
+    (let ( [ discr (sqrt(- (expt b 2) (* 4 a c))) ]
            [ minus-b (- b) ]
            [ a2 (* a 2) ]
          )
@@ -52,23 +52,32 @@
 ;; giving the roots of the quadratic equation corresponding to each
 ;; triple of coefficients.
 (define (lists-quadratic-roots list-as list-bs list-cs)
-    (map (lambda (a b c) (quadratic-roots a b c)) list-as list-bs list-cs)  
+    (map quadratic-roots list-as list-bs list-cs)  
 )
 
 ;; Given a list `ls` of lists, return the sum of the lengths of the
 ;; lists in `ls`.  Must be implemented by cdr'ing down `ls`.
-(define (sum-lengths ls)
-  'TODO)
+ (define (sum-lengths ls)
+   (if (null? ls) 
+     0
+     (+ (length (car ls)) (sum-lengths (cdr ls)))
+   ) 
+)
 
 ;; Given a list `ls` of lists, return the products of the lengths of the
 ;; lists in `ls`.  Implementation must be tail-recursive.
 (define (prod-lengths ls) (aux-prod-lengths ls 1))
 (define (aux-prod-lengths ls sum)
-  'TODO)
+    (if (null? ls)
+        sum
+        (aux-prod-lengths (cdr ls) (* sum (length (car ls))))
+    ) 
+)
 
 ;; given a number `x` and list `coeff-power-list` of 2-element lists
 ;; `(coeff pow)`, return the sum over all list elements of
 ;; `coeff*x^pow`.
 (define (eval-poly x coeff-power-list)
-  'TODO)
+     (foldl (lambda (e acc) (+ (* (car e) (expt x (cadr e))) acc)) 0 coeff-power-list) 
+)
 

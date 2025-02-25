@@ -48,14 +48,14 @@
    (lists-quadratic-roots '(1 2 2) '(-5 0 0) '(6 -18 18))
      '((3 2) (3 -3) (0+3i 0-3i)))
 )
-;(lists-quadratic-roots-tests)
+(lists-quadratic-roots-tests)
 
 (define (sum-lengths-tests)
   (check-equal? (sum-lengths '((1 (2)) (c d e) ())) 5)
   (check-equal? (sum-lengths '(((1 a)) (2))) 2)
   (check-equal? (sum-lengths '()) 0)
 )
-;(sum-lengths-tests)
+(sum-lengths-tests)
 
 (define (prod-lengths-tests)
   (check-equal? (prod-lengths '((1 (2)) (c d e) ())) 0)
@@ -63,7 +63,7 @@
   (check-equal? (prod-lengths '(((1 a)) (2))) 1)
   (check-equal? (prod-lengths '()) 1)
 )
-;(prod-lengths-tests)
+(prod-lengths-tests)
 
 
 (define (eval-poly-tests)
@@ -76,4 +76,4 @@
   (check-equal? (eval-poly 0 '((3 2) (4 1) (5 3) (7 2))) 0)
   (check-equal? (eval-poly 3 '()) 0)
 )
-;(eval-poly-tests)
+(eval-poly-tests)
