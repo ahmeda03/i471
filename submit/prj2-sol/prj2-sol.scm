@@ -56,7 +56,12 @@
 ;; Your implementation *must* use the fact that a binary search tree is
 ;; ordered.
 (define (search-bst k t)
-  'TODO
+   (cond 
+      [ (null? t) 'not-found ]    
+      [ (eq? k (car t)) (cadr t) ]
+      [ (symbol<? k (car t)) (search-bst k (caddr t)) ]
+      [ else (search-bst k (cadddr t)) ]
+    )
 )
 
 ;; #2: 20-points
@@ -67,12 +72,22 @@
 ;; The key `k` should be inserted into `t` without any attempt to
 ;; balance `t`.
 (define (insert-bst k v t)
-  'TODO
+  (cond 
+      [ (null? t) (list k v '() '()) ]    
+      [ (eq? k (car t)) (list k v (caddr t) (cadddr t)) ]
+      [ (symbol<? k (car t)) (list (car t) (cadr t) (insert-bst k v (caddr t)) (cadddr t)) ]
+      [ else (list (car t) (cadr t) (caddr t) (insert-bst k v (cadddr t))) ]
+    )
 )
 
 ;; Insert definition for quadratic-roots from Lab 4.
 (define (quadratic-roots a b c)
-  'TODO
+  (let ( [ discr (sqrt(- (expt b 2) (* 4 a c))) ]
+           [ minus-b (- b) ]
+           [ a2 (* a 2) ]
+         )
+     (list (/ (+ minus-b discr)a2) (/ (- minus-b discr) a2))
+  )
 )
 
 ;; #3: 10-points
@@ -89,7 +104,7 @@
 ;; Hint: Use `map` with a function which calls `quadratic-roots`
 ;; with its arguments extracted from a triple.
 (define (list-quadratic-roots triples)
-  'TODO
+  (map (lambda (x) (quadratic-roots (car x) (cadr x) ( caddr x))) triples)
 )
 
 ;; The racket utility (range n) which returns (0 1 2 ... (- n 1))
@@ -103,7 +118,7 @@
 ;;
 ;; Hint: Use map and foldl.
 (define (sum-fn-in-range fn n)
-  'TODO
+  (foldl (lambda (e acc) (+ (fn e) acc)) 0 (range n))
 )
 
 ;; #5: 15-points
@@ -121,7 +136,7 @@
 ;;
 ;; Hint: use map and foldl
 (define (eval-poly x coeffs)
-  'TODO
+    (foldl + 0 (map (lambda (coeff i) (* coeff (expt x i))) coeffs (range (length coeffs))))
 )
 
 ;; #6: 5-points
@@ -132,7 +147,7 @@
 ;;
 ;; *Hint*: adapt your solution to the previous exercise.
 (define (coeffs-poly coeffs)
-  'TODO
+  (lambda (x) (eval-poly x coeffs))
 )
   
 ;; #7: 20-points
@@ -147,7 +162,7 @@
 ;;
 ;; Cannot use recursion.
 (define (make-poly x coeffs)
-  'TODO
+  (cons '+ (map (lambda (i coeff) `(* ,coeff (expt ,x ,i))) (range (length coeffs)) coeffs))
 )
 		   
 
@@ -161,7 +176,10 @@
 ;; Hint: use make-fn from slides.
 ;;
 (define (dynamic-coeffs-poly coeffs)
-  'TODO
+  (lambda (x)
+    (eval (make-poly x coeffs)
+          (let ((+ +) (* *) (expt expt))
+            (make-base-namespace))))
 )
 
 
