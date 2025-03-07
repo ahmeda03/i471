@@ -136,7 +136,7 @@
 ;;
 ;; Hint: use map and foldl
 (define (eval-poly x coeffs)
-    (foldl + 0 (map (lambda (coeff i) (* coeff (expt x i))) coeffs (range (length coeffs))))
+    (foldl + 0 (map (lambda (coeff i) (* coeff (expt x i)))  coeffs (range (length coeffs))))
 )
 
 ;; #6: 5-points
@@ -162,11 +162,8 @@
 ;;
 ;; Cannot use recursion.
 (define (make-poly x coeffs)
-  (cons '+ (map (lambda (i coeff) `(* ,coeff (expt ,x ,i))) (range (length coeffs)) coeffs))
+  (cons '+ (map (lambda (coeff i) `(* ,coeff (expt ,x ,i))) coeffs (range (length coeffs))))
 )
-		   
-
-
 
 ;; #8: 5-points
 ;;
@@ -176,10 +173,8 @@
 ;; Hint: use make-fn from slides.
 ;;
 (define (dynamic-coeffs-poly coeffs)
-  (lambda (x)
-    (eval (make-poly x coeffs)
-          (let ((+ +) (* *) (expt expt))
-            (make-base-namespace))))
+  (lambda (x) (eval (make-poly x coeffs) (make-base-namespace)))
+
 )
 
 
