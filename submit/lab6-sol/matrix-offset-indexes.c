@@ -11,9 +11,14 @@ int matrix[N0][N1];
  *  or larger than any possible offset).
  */
 static void matrix_offset_indexes(off_t offset, int *i, int *j) {
-  //TODO
-  *i = -1;
-  *j = -1;
+  if (offset >= sizeof(matrix) || offset % sizeof(matrix[0][0] != 0)) {
+    *i = -1;
+    *j = -1;
+  } else {
+    int entry = offset / sizeof(matrix[0][0]);
+    *i = entry / N1;
+    *j = entry % N1;
+  }
 }
 
 

@@ -25,13 +25,16 @@ free (static, -20)
 
 
 static C *f1(int n) { 
-  //TODO
-  return NULL;
+  C c1("stack", 10*n + 1);
+  static C c2("static", -20);
+  C *c3 = new C("heap", 10*n + 3);
+  return c3;
 }
 
 
 int main() {
-  //TODO
+  C *c = f1(1);
+  delete c;
 }
   
   

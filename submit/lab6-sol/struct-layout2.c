@@ -12,18 +12,18 @@ typedef struct {
 
 //rearrange fields of S2 so that offset of s == 4, but sizeof(S2) == sizeof(S1)
 typedef struct {
-  char c;
-  void *p;
-  short s;
   int i;
+  short s;
+  void *p;
+  char c;
 } S2;
 
 //rearrange fields of S3 so that offset of c == 0, but sizeof S3 is minimized.
 typedef struct {
   char c;
-  void *p;
   short s;
   int i;
+  void *p;
 } S3;
 
 //Do not change code below
