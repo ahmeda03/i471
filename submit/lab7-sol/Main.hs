@@ -18,12 +18,12 @@ testFact = do
 ---------------------------------- poly2 --------------------------------
 
 propPoly2 :: Int -> Int -> Int -> Bool
-propPoly2 x a b = (poly2 x a b) == (x*x - 2 * a * b * x + a*b)
+propPoly2 x a b = (poly2 x a b) == (x*x - a * x - b * x + a*b)
 
 testPoly2 = do
   ioTest "poly2 2 1 1" (poly2 2 1 1) 1
   ioTest "poly2 5 2 3" (poly2 5 2 3) 6
-  propTest "poly2 x a b must equal x^2 - 2abx + ab" propFact
+  propTest "poly2 x a b must equal x^2 - a*x - b*x + ab" propPoly2
 
 ----------------------------------- thrd --------------------------------
 
@@ -63,12 +63,12 @@ testBoundedShapes =
 --   Run:   run these tests when no tests are marked Only.
 --   Skip:  skip these tests.
 allTests = [
-    (Skip testFact),
-    (Skip testPoly2), 
-    (Skip testThrd), 
-    (Skip testShapesArea),
-    (Skip testShapesPerim),
-    (Skip testBoundedShapes) 
+    (Run testFact),
+    (Run testPoly2), 
+    (Run testThrd), 
+    (Run testShapesArea),
+    (Run testShapesPerim),
+    (Run testBoundedShapes) 
   ]
 
 
