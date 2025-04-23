@@ -44,7 +44,8 @@ import Data.List (lookup)
 -- of singleton lists [e].
 -- *Restriction*: must use map with a section.
 toSingletonLists :: [e] -> [[e]]
-toSingletonLists list = [] -- TODO
+toSingletonLists [] = []
+toSingletonLists (x:xs) = map (\x -> [x]) (x:xs)
 
 --------------------------------- listMap -------------------------------
 
@@ -56,7 +57,7 @@ toSingletonLists list = [] -- TODO
 -- *Restriction*: cannot use explicit recursion
 -- Hint: use the map function or a list comprehension
 listMap :: (a -> b -> c) -> a -> [b] -> [c]
-listMap f a list =  [] -- TODO
+listMap f a list =  map (f a) list
 
 ---------------------------------- member -------------------------------
 
@@ -67,8 +68,8 @@ listMap f a list =  [] -- TODO
 -- Hint: define folding function using a lambda or local let/where definition;
 -- also see recursive definition of member in slides.
 member :: Eq e => e -> [e] -> Bool
-member e list = False -- TODO
-
+member e [] = False
+member e (x:xs) = foldl (\acc x -> acc || (x == e)) False (x:xs) 
 
 ------------------------------- selectNApart ----------------------------
 
@@ -79,7 +80,11 @@ member e list = False -- TODO
 -- n, 2n, 3n, 4n, ... .
 -- Hint: use drop
 selectNApart :: Int -> [e] -> [e]
-selectNApart n list = [] -- TODO
+-- selectNApart n list = [] -- TODO
+selectNApart n [] = []
+selectNApart n list
+  | n <= 0 = list
+  | otherwise = head list : selectNApart n (drop n list)
 
 ------------------------------ evalIntExpr ------------------------------
 
@@ -99,8 +104,11 @@ data IntExpr =
 -- expression-tree given by its argument expr.
 -- Hint: use a simple recursive traversal
 evalIntExpr :: IntExpr -> Int
-evalIntExpr expr = 0 -- TODO
-
+evalIntExpr (IntLeaf val) = val
+evalIntExpr (IntAdd x y) = evalIntExpr x + evalIntExpr y 
+evalIntExpr (IntSub x y) = evalIntExpr x - evalIntExpr y 
+evalIntExpr (IntMul x y) = evalIntExpr x * evalIntExpr y 
+evalIntExpr (IntUminus x) = - (evalIntExpr x)
 
 ------------------------------ evalIdExpr -------------------------------
 
@@ -125,8 +133,15 @@ type Assoc v = [ (String, v) ]
 -- not found in assoc, then its value should default to 0.
 -- Hint: use Data.List.lookup imported above.
 evalIdExpr :: IdExpr -> Assoc Int -> Int
-evalIdExpr expr assoc = 0 -- TODO
-
+evalIdExpr (IdId x) assoc = 
+  case lookup x assoc of
+    Just val -> val
+    Nothing -> 0
+evalIdExpr (IdLeaf x) assoc = x
+evalIdExpr (IdAdd x y) assoc = evalIdExpr x assoc + evalIdExpr y assoc
+evalIdExpr (IdSub x y) assoc = evalIdExpr x assoc - evalIdExpr y assoc
+evalIdExpr (IdMul x y) assoc = evalIdExpr x assoc * evalIdExpr y assoc
+evalIdExpr (IdUminus x) assoc = - (evalIdExpr x assoc) 
   
 ----------------------------- evalMaybeExpr -----------------------------
 
@@ -147,8 +162,23 @@ data MaybeExpr =
 -- in assoc, then the function should return Nothing.
 -- Hint: use do notation.
 evalMaybeExpr :: MaybeExpr -> Assoc Int -> Maybe Int
-evalMaybeExpr expr assoc = Just 0  -- TODO
-  
+evalMaybeExpr (MaybeId x) assoc = lookup x assoc
+evalMaybeExpr (MaybeLeaf x) assoc = (Just x)
+evalMaybeExpr (MaybeAdd x y) assoc = do
+  x' <- evalMaybeExpr x assoc
+  y' <- evalMaybeExpr y assoc
+  Just (x' + y')
+evalMaybeExpr (MaybeSub x y) assoc = do
+  x' <- evalMaybeExpr x assoc
+  y' <- evalMaybeExpr y assoc
+  Just (x' - y')
+evalMaybeExpr (MaybeMul x y) assoc = do
+  x' <- evalMaybeExpr x assoc
+  y' <- evalMaybeExpr y assoc
+  Just (x' * y')
+evalMaybeExpr (MaybeUminus x) assoc = do
+  x' <- evalMaybeExpr x assoc
+  Just (-x')
 
 ---------------------------- evalPostfixExpr ----------------------------
 
@@ -205,8 +235,16 @@ data PostfixExpr =
 --    + When there are no unprocessed tokens, the stack should contain
 --      a single PostfixExpr containing the value to be returned.
 postfixExpr :: String -> PostfixExpr
-postfixExpr str = PostfixLeaf 0 -- TODO
-
+postfixExpr str = head (foldl goThroughTokens [] (words str))
+  where
+    goThroughTokens stack token
+      | token == "+" = applyBinaryOp PostfixAdd stack
+      | token == "-" = applyBinaryOp PostfixSub stack
+      | token == "*" = applyBinaryOp PostfixMul stack
+      | token == "uminus" = applyUnaryOp PostfixUminus stack
+      | otherwise = PostfixLeaf (read token) : stack
+    applyBinaryOp op (x:y:stack) = op y x : stack
+    applyUnaryOp op (x:stack) = op x : stack
 
 
   
