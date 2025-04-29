@@ -19,12 +19,12 @@
 %% The skeleton file is distributed with all tests deactivated
 %% by being enclosed within if(false) ... endif directives.
 
--if(false).  
 
 -define(test_points_letter_grade, enabled).
 -define(test_grades_letter_grade, enabled).
 -define(test_grades_server, enabled).
 
+-if(false).  
 -endif.
 
 %----------------------- points_letter_grade/1 --------------------------
