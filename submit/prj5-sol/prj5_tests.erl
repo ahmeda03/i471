@@ -23,16 +23,16 @@
 %% The skeleton file is distributed with all tests deactivated
 %% by being enclosed within if(false) ... endif directives.
 
--if(false).  
+%%-if(false).  
 
 -define(test_rec_poly_eval, enabled).
--define(test_non_rec_poly_eval, enabled).
--define(test_tuple_poly_eval, enabled).
--define(test_assoc_lookup, enabled).
--define(test_id_poly_eval, enabled).
--define(test_server_fn, enabled).
+%%-define(test_non_rec_poly_eval, enabled).
+%%-define(test_tuple_poly_eval, enabled).
+%%-define(test_assoc_lookup, enabled).
+%%-define(test_id_poly_eval, enabled).
+%%-define(test_server_fn, enabled).
 
--endif.
+%%-endif.
 
 %----------------------- Recursive Polynomial Eval ----------------------
 

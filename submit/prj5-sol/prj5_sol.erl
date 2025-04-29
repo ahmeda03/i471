@@ -49,7 +49,13 @@
 %
 % *Restriction*: Your implementation is required to be tail-recursive.
 % *Hint*: Use an auxiliary function.
-rec_poly_eval(_Coeffs, _X) -> 'TODO'.
+% rec_poly_eval(_Coeffs, _X) -> 'TODO'.
+rec_poly_eval(Coeffs, X) -> 
+  rec_poly_eval(Coeffs, X, 0, 0).
+
+rec_poly_eval([], _, _, Acc) -> Acc;
+rec_poly_eval([H|T], X, Power, Acc) ->
+  rec_poly_eval(T, X, Power + 1, H * math:pow(X, Power) + Acc).
 
 
 %--------------------- Non-Recursive Polynomial Eval --------------------
